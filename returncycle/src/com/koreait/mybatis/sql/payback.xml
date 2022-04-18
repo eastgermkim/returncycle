@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Payback">
+	<insert id="form" parameterType="paybackVO">
+		INSERT INTO USER_PAYBACK
+		VALUES(#{p_id}, #{p_name}, #{p_phone}, #{p_email}, #{p_zipcode}, #{p_address}, #{p_address_detail}, #{p_request}, #{p_order}, #{p_point})
+	</insert>
+	
+	<select id="getMyCount" parameterType="String" resultType="_int">
+		SELECT COUNT (*) FROM USER_PAYBACK WHERE P_ID = #{u_id}
+	</select>
+	
+	<update id="pointMinus" parameterType="hashMap">
+		UPDATE USER_PROFILE 
+		SET u_point = u_point - #{p_point}
+		WHERE u_id = #{p_id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

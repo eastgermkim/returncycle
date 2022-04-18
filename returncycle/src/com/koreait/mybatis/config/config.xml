@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.koreait.app.member.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="com.koreait.app.apply.vo.ApplyVO" alias="applyVO"/>
+		<typeAlias type="com.koreait.app.Deliver.vo.DeliverVO" alias="deliverVO"/>
+		<typeAlias type="com.koreait.app.payback.vo.PaybackVO" alias="paybackVO"/>
+		<typeAlias type="com.koreait.app.code.vo.CodeVO" alias="codeVO"/>
+		<typeAlias type="com.koreait.app.review.vo.ReviewVO" alias="reviewVO"/>
+		<typeAlias type="com.koreait.app.review.vo.ReviewReplyVO" alias="reviewReplyVO"/>
+		<typeAlias type="com.koreait.app.review.vo.ReviewFilesVO" alias="reviewFilesVO"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+				<property name="username" value="scott"/>
+				<property name="password" value="tiger"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/koreait/mybatis/sql/member.xml"/>
+		<mapper resource="com/koreait/mybatis/sql/apply.xml"/>
+		<mapper resource="com/koreait/mybatis/sql/deliver.xml"/>
+		<mapper resource="com/koreait/mybatis/sql/payback.xml"/>
+		<mapper resource="com/koreait/mybatis/sql/code.xml"/>
+		<mapper resource="com/koreait/mybatis/sql/review.xml"/> 
+		<mapper resource="com/koreait/mybatis/sql/reviewFiles.xml"/> 
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

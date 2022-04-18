@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<insert id="join" parameterType="memberVO">
+		INSERT INTO USER_PROFILE
+		VALUES(
+			#{u_id}, #{u_pwd}, #{u_pwd_q}, #{u_pwd_a},
+			#{u_last_name},#{u_first_name},#{u_gender},
+			#{u_email},#{u_phone},#{u_zipcode},#{u_address},#{u_address_detail}, 0, 0
+		)<!-- birthToDate#{birthday, 'YYYY'-'MM'-'DD'}, -->
+	</insert>
+	
+	<select id="checkId" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM USER_PROFILE WHERE u_id = #{u_id}
+	</select>
+	
+	<select id="login" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM USER_PROFILE 
+		WHERE u_id = #{u_id} AND u_pwd = #{u_pwd}
+	</select> 
+	
+	<select id="getUserId" resultType="string">
+		SELECT U_ID FROM USER_PROFILE 
+	</select>
+	
+	<select id="getDetail" parameterType="string" resultType="memberVO">
+		SELECT * FROM USER_PROFILE WHERE U_ID = #{u_id}
+	</select>
+	
+	<select id="checkAdmin" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM USER_PROFILE 
+		WHERE u_id = #{u_id} AND admin = #{admin}
+	</select>
+	
+		<select id="getPoint" parameterType="string" resultType="string">
+		SELECT u_point FROM USER_PROFILE
+		WHERE u_id = #{u_id}
+	</select>
+	
+	<select id="getWho" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM USER_PROFILE WHERE U_ID = #{u_id}
+	</select>
+	
+	<select id="Phone" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM USER_PROFILE WHERE U_PHONE = #{U_PHONE}
+	</select>
+
+	<select id="findId" parameterType="memberVO" resultType="string">
+		SELECT u_id FROM USER_PROFILE WHERE u_last_name = #{u_last_name} AND u_first_name = #{u_first_name}
+		AND u_email = #{u_email} AND u_phone = #{u_phone}
+	</select>
+	
+	<select id="findPw" parameterType="memberVO" resultType="string">
+		SELECT u_pwd FROM USER_PROFILE WHERE u_id = #{u_id} AND u_phone = #{u_phone}
+		AND u_pwd_q = #{u_pwd_q} AND u_pwd_a = #{u_pwd_a}
+	</select>
+	
+	<update id="modify" parameterType="memberVO">
+		UPDATE USER_PROFILE
+		SET 
+		U_PWD= #{u_pwd},
+		U_GENDER=#{u_gender},
+		U_EMAIL=#{u_email},
+		U_PHONE=#{u_phone},
+		U_ZIPCODE=#{u_zipcode},
+		U_ADDRESS=#{u_address},
+		U_ADDRESS_DETAIL=#{u_address_detail}
+		WHERE U_ID = #{u_id}
+	</update>
+	
+	<update id="deleteMember">
+		UPDATE USER_PROFILE
+		SET END_YN='Y'
+		WHERE U_NUM=#{U_NUM}		
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

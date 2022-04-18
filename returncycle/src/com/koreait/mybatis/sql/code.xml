@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Code">
+	<select id="insertCode" parameterType="map">
+		INSERT INTO CODE_TB(c_phone, tempCode)
+		VALUES(#{c_phone}, #{tempCode}) 
+	</select> 
+	
+	<select id="CheckCode" parameterType="string" resultType="_int">
+	SELECT COUNT(*) FROM CODE_TB WHERE tempcode = #{tempcode}
+	</select>
+	
+	<delete id="deleteCode" parameterType="String">
+	DELETE FROM CODE_TB WHERE tempcode = #{tempcode}
+	</delete>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

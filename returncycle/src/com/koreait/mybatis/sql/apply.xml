@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Apply">
+	<insert id="form" parameterType="applyVO">
+		INSERT INTO APPLY
+		VALUES(
+			SYSDATE, #{a_uid}, #{a_id}, #{a_name}, #{a_email}, #{a_phone},
+			#{a_zipcode}, #{a_address}, #{a_address_detail}, #{a_request},
+			#{a_wdate}, #{a_wtime}, #{a_plastic}, 
+			#{a_vinyl}, #{a_can}, #{a_glass}, #{a_paper}, #{a_point}
+		)
+	</insert>
+	
+	<select id="listAll" parameterType="map" resultType="applyVO">
+		SELECT * FROM
+			(SELECT ROWNUM R, D.* FROM 
+				(SELECT * FROM APPLY ORDER BY A_DATE DESC) D) B
+		WHERE B.R BETWEEN ${a_startRow} AND ${a_endRow}
+	</select>
+	
+	<select id="getApplyCnt" resultType="_int">
+		SELECT COUNT(*) FROM APPLY
+	</select>
+	
+	<!-- a_uid 받아서 신청 내용 리턴 -->
+	<select id="getDetail" parameterType="String" resultType="applyVO">
+		SELECT * FROM APPLY WHERE A_UID = #{a_uid}
+	</select>
+	
+	<!-- a_id 받아서 신청 내용 리턴 -->
+	<select id="getInfo" parameterType="String" resultType="applyVO">
+		SELECT * FROM APPLY WHERE A_ID = #{a_id}
+	</select>
+	
+	
+	<!-- 신청하기에 동일 아이디 찾기 -->
+	<select id="findApplyId" parameterType="String" resultType="_int">
+		SELECT COUNT (*) FROM APPLY WHERE A_ID = #{a_id}
+	</select>
+	
+	<!--신청하기 삭제 -->
+	<delete id="deleteApply" parameterType="String">
+		DELETE FROM APPLY WHERE A_UID = #{a_uid}
+	</delete>
+	
+	<!-- a_id 받아서 신청 내용 리턴 , 마이페이지 신청확인, 수정-->
+	<select id="getMyApply" parameterType="String" resultType="applyVO">
+		SELECT * FROM APPLY WHERE A_ID = #{a_id}
+	</select>
+	
+	<!-- a_uid 찾아서 신청내용 수정, 업데이트 -->
+ 	<update id="updateApply" parameterType="applyVO">
+		UPDATE APPLY
+		SET A_ID = #{a_id},
+		A_NAME = #{a_name},
+		A_EMAIL = #{a_email}, 
+		A_PHONE = #{a_phone}, 
+		A_ZIPCODE = #{a_zipcode}, 
+		A_ADDRESS = #{a_address}, 
+		A_ADDRESS_DETAIL = #{a_address_detail}, 
+		A_REQUEST = #{a_request}, 
+		A_WDATE = #{a_wdate},
+		A_WTIME = #{a_wtime},
+		A_PLASTIC = #{a_plastic}, 
+		A_VINYL = #{a_vinyl}, 
+		A_CAN = #{a_can}, 
+		A_GLASS = #{a_glass}, 
+		A_PAPER = #{a_paper}, 
+		A_POINT = #{a_point} 
+		WHERE A_UID = #{a_uid}
+	</update>
+</mapper>

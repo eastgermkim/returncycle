@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewFiles">
+	<insert id="insertFile" parameterType="reviewFilesVO">
+		INSERT INTO REVIEW_FILES VALUES(#{r_file_name},${review_idx})
+	</insert>
+	
+	<select id="getDetail" parameterType="_int" resultType="reviewFilesVO">
+		SELECT * FROM REVIEW_FILES WHERE REVIEW_IDX = ${review_idx}
+	</select>
+	
+	<delete id="deleteReviewFiles" parameterType="_int">
+		DELETE FROM REVIEW_FILES WHERE REVIEW_IDX = ${review_idx}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

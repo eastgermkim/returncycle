@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Review">
+ 	<select id="listAll" parameterType="map" resultType="reviewVO">
+		SELECT * FROM 
+ 			(SELECT ROWNUM R, D.* FROM
+				(SELECT * FROM REVIEW ORDER BY review_idx DESC) D) B 
+ 		WHERE B.R BETWEEN ${startRow} AND ${endRow} 
+	</select> 
+	
+	<select id="getReviewCnt" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW
+	</select> 
+	 
+ 	<select id="getMyCount" parameterType="String" resultType="_int">
+		SELECT COUNT (*) FROM REVIEW WHERE review_id = #{u_id}
+	</select>
+<!-- 	<update id="updateReadCount" parameterType="_int">
+		UPDATE REVIEW 
+		SET READCOUNT = READCOUNT + 1
+		WHERE REVIEW_IDX = ${review_idx}
+	</update> -->
+	
+ 	<select id="getSeq" resultType="_int">
+		SELECT REVIEW_SEQ.CURRVAL FROM DUAL
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO REVIEW VALUES (REVIEW_SEQ.NEXTVAL, #{review_title},#{review_content},#{review_id},SYSDATE)
+	</insert>
+	
+	<select id="getDetail" parameterType="_int" resultType="reviewVO">
+		SELECT * FROM REVIEW WHERE REVIEW_IDX=#{review_idx}
+	</select>
+
+	<delete id="deleteReview" parameterType="_int">
+		DELETE FROM REVIEW WHERE REVIEW_IDX=#{review_idx}
+	</delete>
+	
+	<update id="updateReview" parameterType="reviewVO">
+		UPDATE REVIEW 
+		SET REVIEW_TITLE = #{review_title}, REVIEW_CONTENT = #{review_content} 
+		WHERE REVIEW_IDX=${review_idx}
+	</update>
+	
+	<!-- 댓글 -->
+	<select id="getReviewReplyList" parameterType="_int" resultType="reviewReplyVO">
+		SELECT * FROM REVIEW_REPLY WHERE REVIEW_IDX=${review_idx} ORDER BY REVIEW_REPLY_NUM DESC
+	</select>
+	
+	<insert id="insertReviewReply" parameterType="reviewReplyVO">
+		INSERT INTO REVIEW_REPLY
+		VALUES(REVIEW_REPLY_SEQ.NEXTVAL, ${review_idx}, #{u_id}, #{review_reply_content})
+	</insert>
+	
+	<delete id="deleteReviewReply" parameterType="_int">
+		DELETE FROM REVIEW_REPLY WHERE REVIEW_REPLY_NUM = ${review_reply_num}
+	</delete>
+	
+	<update id="updateReviewReply" parameterType="reviewReplyVO">
+		UPDATE REVIEW_REPLY 
+		SET REVIEW_REPLY_CONTENT = #{review_reply_content}
+		WHERE REVIEW_REPLY_NUM = ${review_reply_num}
+	</update>
+	
+	<delete id="deleteReviewReplyAll" parameterType="_int">
+		DELETE FROM REVIEW_REPLY WHERE REVIEW_IDX = #{review_idx}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
